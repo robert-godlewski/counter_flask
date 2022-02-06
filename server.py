@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, session
+from flask import Flask, render_template, redirect, session, request
 
 
 app = Flask(__name__)
@@ -19,6 +19,11 @@ def destroy_session():
 @app.route('/double_count')
 def double_count():
     session['count'] += 1
+    return redirect('/')
+
+@app.route('/custom_count', methods=['POST'])
+def custom_count():
+    session['count'] += int(request.form['count'])-1
     return redirect('/')
 
 
