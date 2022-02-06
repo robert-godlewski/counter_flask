@@ -7,21 +7,18 @@ app.secret_key = 'hello'
 
 @app.route('/')
 def counter(): 
-    if 'count' not in session: 
-        print('\n', str(session))
-        print('count doesn\'t exist.\nNow adding it in?')
-        session['count'] = 0
-        print(f'session details: {str(session)}')
-        print(f"count in session: {str(session['count'])}")
-    else: 
-        session['count'] += 1
-        print(f"\nCount is now: {str(session['count'])}")
+    if 'count' not in session: session['count'] = 0
+    else: session['count'] += 1
     return render_template("index.html")
 
 @app.route('/destroy_session')
 def destroy_session(): 
     session.clear()
-    print('\nRestarted the count.')
+    return redirect('/')
+
+@app.route('/double_count')
+def double_count():
+    session['count'] += 1
     return redirect('/')
 
 
